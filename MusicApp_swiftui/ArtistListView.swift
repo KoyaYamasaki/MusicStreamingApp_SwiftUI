@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-struct ArtistListView: View {
-  @ObservedObject var localServerData: LocalServerData
+struct ArtistCellView: View {
   var artist: Artist
 
   var body: some View {
-    NavigationLink(destination: AlbumListView(artist: artist, localServerData: localServerData)) {
+    NavigationLink(destination: Text("Artist detail View")) {
       HStack {
         ZStack {
           Circle().frame(width: 50, height: 50, alignment: .center).foregroundColor(.blue)
@@ -21,13 +20,12 @@ struct ArtistListView: View {
         Text(artist.name).bold()
         Spacer()
       }.padding(20)
-    }
-    .buttonStyle(PlainButtonStyle())
+    }.buttonStyle(PlainButtonStyle())
   }
 }
 
-struct ArtistListView_Previews: PreviewProvider {
+struct ArtistCellView_Previews: PreviewProvider {
     static var previews: some View {
-      ArtistListView(localServerData: LocalServerData(), artist: Artist.example)
+      ArtistCellView(artist: Artist.example)
     }
 }

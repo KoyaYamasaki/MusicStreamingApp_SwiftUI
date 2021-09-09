@@ -3,33 +3,35 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4646502326D1A50100AA90E6 /* LocalServerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4646502226D1A50100AA90E6 /* LocalServerData.swift */; };
-		4646502526D1A5C300AA90E6 /* Artist+Song+Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4646502426D1A5C300AA90E6 /* Artist+Song+Album.swift */; };
+		4646502526D1A5C300AA90E6 /* Artist_Song_Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4646502426D1A5C300AA90E6 /* Artist_Song_Album.swift */; };
 		4646502826D2381900AA90E6 /* ArtistListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4646502726D2381900AA90E6 /* ArtistListView.swift */; };
-		4646502A26D23D0700AA90E6 /* AlbumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4646502926D23D0700AA90E6 /* AlbumListView.swift */; };
-		46B6881C26E1E36400050186 /* AlbumCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B6881B26E1E36400050186 /* AlbumCellView.swift */; };
-		46B6881E26E21D0700050186 /* ArtistPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B6881D26E21D0700050186 /* ArtistPagerView.swift */; };
+		4646502A26D23D0700AA90E6 /* ArtistFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4646502926D23D0700AA90E6 /* ArtistFeatureView.swift */; };
+		46C3003526C1090300FA1D12 /* FirebaseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C3003426C1090300FA1D12 /* FirebaseData.swift */; };
 		46E2A8D326C178B800BCE0FC /* AlbumArtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E2A8D226C178B800BCE0FC /* AlbumArtView.swift */; };
+		46E2A8D526C1798000BCE0FC /* SongCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E2A8D426C1798000BCE0FC /* SongCellView.swift */; };
 		46F3BE3726C0C0B800BD7B45 /* MusicApp_swiftuiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F3BE3626C0C0B800BD7B45 /* MusicApp_swiftuiApp.swift */; };
 		46F3BE3926C0C0B800BD7B45 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F3BE3826C0C0B800BD7B45 /* ContentView.swift */; };
 		46F3BE3B26C0C0B900BD7B45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46F3BE3A26C0C0B900BD7B45 /* Assets.xcassets */; };
 		46F3BE3E26C0C0B900BD7B45 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46F3BE3D26C0C0B900BD7B45 /* Preview Assets.xcassets */; };
 		46F3BE4626C0D96B00BD7B45 /* BlurEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F3BE4526C0D96B00BD7B45 /* BlurEffect.swift */; };
 		46F3BE4826C0FE2200BD7B45 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F3BE4726C0FE2200BD7B45 /* PlayerView.swift */; };
+		46F3BE4A26C1050900BD7B45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 46F3BE4926C1050900BD7B45 /* GoogleService-Info.plist */; };
+		C063F3743EC016F5F1CAF5AB /* Pods_MusicApp_swiftui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA307C7476BF5A589BFD5CC /* Pods_MusicApp_swiftui.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4646502226D1A50100AA90E6 /* LocalServerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalServerData.swift; sourceTree = "<group>"; };
-		4646502426D1A5C300AA90E6 /* Artist+Song+Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Artist+Song+Album.swift"; sourceTree = "<group>"; };
+		4646502426D1A5C300AA90E6 /* Artist_Song_Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist_Song_Album.swift; sourceTree = "<group>"; };
 		4646502726D2381900AA90E6 /* ArtistListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistListView.swift; sourceTree = "<group>"; };
-		4646502926D23D0700AA90E6 /* AlbumListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListView.swift; sourceTree = "<group>"; };
-		46B6881B26E1E36400050186 /* AlbumCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCellView.swift; sourceTree = "<group>"; };
-		46B6881D26E21D0700050186 /* ArtistPagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistPagerView.swift; sourceTree = "<group>"; };
+		4646502926D23D0700AA90E6 /* ArtistFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistFeatureView.swift; sourceTree = "<group>"; };
+		46C3003426C1090300FA1D12 /* FirebaseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseData.swift; sourceTree = "<group>"; };
 		46E2A8D226C178B800BCE0FC /* AlbumArtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumArtView.swift; sourceTree = "<group>"; };
+		46E2A8D426C1798000BCE0FC /* SongCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCellView.swift; sourceTree = "<group>"; };
 		46F3BE3326C0C0B800BD7B45 /* MusicApp_swiftui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicApp_swiftui.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46F3BE3626C0C0B800BD7B45 /* MusicApp_swiftuiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicApp_swiftuiApp.swift; sourceTree = "<group>"; };
 		46F3BE3826C0C0B800BD7B45 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -38,6 +40,10 @@
 		46F3BE3F26C0C0B900BD7B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		46F3BE4526C0D96B00BD7B45 /* BlurEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurEffect.swift; sourceTree = "<group>"; };
 		46F3BE4726C0FE2200BD7B45 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		46F3BE4926C1050900BD7B45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9A110FC5A8552E99011D4933 /* Pods-MusicApp_swiftui.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicApp_swiftui.debug.xcconfig"; path = "Target Support Files/Pods-MusicApp_swiftui/Pods-MusicApp_swiftui.debug.xcconfig"; sourceTree = "<group>"; };
+		B0B99E3FCD84643FAAA0CCA6 /* Pods-MusicApp_swiftui.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicApp_swiftui.release.xcconfig"; path = "Target Support Files/Pods-MusicApp_swiftui/Pods-MusicApp_swiftui.release.xcconfig"; sourceTree = "<group>"; };
+		DEA307C7476BF5A589BFD5CC /* Pods_MusicApp_swiftui.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicApp_swiftui.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C063F3743EC016F5F1CAF5AB /* Pods_MusicApp_swiftui.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,8 +61,9 @@
 		4646502626D1A5D500AA90E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4646502426D1A5C300AA90E6 /* Artist+Song+Album.swift */,
+				4646502426D1A5C300AA90E6 /* Artist_Song_Album.swift */,
 				4646502226D1A50100AA90E6 /* LocalServerData.swift */,
+				46C3003426C1090300FA1D12 /* FirebaseData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -65,6 +73,8 @@
 			children = (
 				46F3BE3526C0C0B800BD7B45 /* MusicApp_swiftui */,
 				46F3BE3426C0C0B800BD7B45 /* Products */,
+				C279067233FCF597E50B698A /* Pods */,
+				9915C515C7A057E97069E800 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,13 +89,13 @@
 		46F3BE3526C0C0B800BD7B45 /* MusicApp_swiftui */ = {
 			isa = PBXGroup;
 			children = (
+				46F3BE4926C1050900BD7B45 /* GoogleService-Info.plist */,
 				4646502626D1A5D500AA90E6 /* Model */,
 				46F3BE3626C0C0B800BD7B45 /* MusicApp_swiftuiApp.swift */,
 				46F3BE3826C0C0B800BD7B45 /* ContentView.swift */,
-				46B6881D26E21D0700050186 /* ArtistPagerView.swift */,
+				46E2A8D426C1798000BCE0FC /* SongCellView.swift */,
 				4646502726D2381900AA90E6 /* ArtistListView.swift */,
-				4646502926D23D0700AA90E6 /* AlbumListView.swift */,
-				46B6881B26E1E36400050186 /* AlbumCellView.swift */,
+				4646502926D23D0700AA90E6 /* ArtistFeatureView.swift */,
 				46E2A8D226C178B800BCE0FC /* AlbumArtView.swift */,
 				46F3BE4726C0FE2200BD7B45 /* PlayerView.swift */,
 				46F3BE4526C0D96B00BD7B45 /* BlurEffect.swift */,
@@ -104,6 +114,23 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		9915C515C7A057E97069E800 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DEA307C7476BF5A589BFD5CC /* Pods_MusicApp_swiftui.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C279067233FCF597E50B698A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9A110FC5A8552E99011D4933 /* Pods-MusicApp_swiftui.debug.xcconfig */,
+				B0B99E3FCD84643FAAA0CCA6 /* Pods-MusicApp_swiftui.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -111,9 +138,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 46F3BE4226C0C0B900BD7B45 /* Build configuration list for PBXNativeTarget "MusicApp_swiftui" */;
 			buildPhases = (
+				CAEE63BEBA7ECE844EE15C19 /* [CP] Check Pods Manifest.lock */,
 				46F3BE2F26C0C0B800BD7B45 /* Sources */,
 				46F3BE3026C0C0B800BD7B45 /* Frameworks */,
 				46F3BE3126C0C0B800BD7B45 /* Resources */,
+				691ED611E02D690183EC51DD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -163,10 +192,53 @@
 			files = (
 				46F3BE3E26C0C0B900BD7B45 /* Preview Assets.xcassets in Resources */,
 				46F3BE3B26C0C0B900BD7B45 /* Assets.xcassets in Resources */,
+				46F3BE4A26C1050900BD7B45 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		691ED611E02D690183EC51DD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MusicApp_swiftui/Pods-MusicApp_swiftui-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MusicApp_swiftui/Pods-MusicApp_swiftui-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MusicApp_swiftui/Pods-MusicApp_swiftui-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CAEE63BEBA7ECE844EE15C19 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MusicApp_swiftui-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		46F3BE2F26C0C0B800BD7B45 /* Sources */ = {
@@ -174,16 +246,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				46E2A8D326C178B800BCE0FC /* AlbumArtView.swift in Sources */,
+				46E2A8D526C1798000BCE0FC /* SongCellView.swift in Sources */,
 				46F3BE4626C0D96B00BD7B45 /* BlurEffect.swift in Sources */,
 				4646502826D2381900AA90E6 /* ArtistListView.swift in Sources */,
+				46C3003526C1090300FA1D12 /* FirebaseData.swift in Sources */,
 				4646502326D1A50100AA90E6 /* LocalServerData.swift in Sources */,
-				46B6881C26E1E36400050186 /* AlbumCellView.swift in Sources */,
 				46F3BE3926C0C0B800BD7B45 /* ContentView.swift in Sources */,
 				46F3BE3726C0C0B800BD7B45 /* MusicApp_swiftuiApp.swift in Sources */,
 				46F3BE4826C0FE2200BD7B45 /* PlayerView.swift in Sources */,
-				46B6881E26E21D0700050186 /* ArtistPagerView.swift in Sources */,
-				4646502A26D23D0700AA90E6 /* AlbumListView.swift in Sources */,
-				4646502526D1A5C300AA90E6 /* Artist+Song+Album.swift in Sources */,
+				4646502A26D23D0700AA90E6 /* ArtistFeatureView.swift in Sources */,
+				4646502526D1A5C300AA90E6 /* Artist_Song_Album.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +380,7 @@
 		};
 		46F3BE4326C0C0B900BD7B45 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A110FC5A8552E99011D4933 /* Pods-MusicApp_swiftui.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -330,6 +403,7 @@
 		};
 		46F3BE4426C0C0B900BD7B45 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0B99E3FCD84643FAAA0CCA6 /* Pods-MusicApp_swiftui.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

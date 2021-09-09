@@ -6,18 +6,20 @@
 //
 
 import SwiftUI
-
+import Firebase
 @main
 struct MusicApp_swiftuiApp: App {
+  let firebaseData = FirebaseData()
   let localServerData = LocalServerData()
-  
   init() {
+    FirebaseApp.configure()
+//    firebaseData.loadAlbums()
     localServerData.fetchLocalServerData()
   }
-  
+
   var body: some Scene {
     WindowGroup {
-      ContentView(localServerData: localServerData)
+      ContentView(firebaseData: firebaseData, localServerData: localServerData)
     }
   }
 }

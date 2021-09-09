@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 import AVFoundation
 
 struct PlayerView: View {
@@ -17,8 +18,7 @@ struct PlayerView: View {
   
   var body: some View {
     ZStack {
-      // TODO: Refactor to display actual album image
-      album.getImage.resizable().edgesIgnoringSafeArea(.all)
+      Image(album.image).resizable().edgesIgnoringSafeArea(.all)
       Blur(style: .dark).edgesIgnoringSafeArea(.all)
       LinearGradient(
         gradient: Gradient(colors:[Color.black.opacity(0.0), Color.black.opacity(0.95)]),
@@ -29,18 +29,18 @@ struct PlayerView: View {
       VStack {
         Spacer()
         AlbumArtView(album: album, isWithText: false)
-        Text(album.title).font(.title).fontWeight(.light).foregroundColor(.white)
+        Text(album[currentTrackNumber].name).font(.title).fontWeight(.light).foregroundColor(.white)
         Spacer()
         ZStack {
           HStack {
             Button { self.previous() } label: {
               Image(systemName: "arrow.left.circle").resizable()
             }.frame(width: 50, height: 50, alignment: .center).foregroundColor(.white)
-            
+
             Button { self.playPause() } label: {
               Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill").resizable()
             }.frame(width: 70, height: 70, alignment: .center).foregroundColor(.white).padding()
-            
+
             Button { self.next() } label: {
               Image(systemName: "arrow.right.circle").resizable()
             }.frame(width: 50, height: 50, alignment: .center).foregroundColor(.white)
@@ -55,25 +55,24 @@ struct PlayerView: View {
       }
     }
   }
-
+  
   func start() {
-    var url: URL?
-    
-    let urlAppendix = self.album[currentTrackNumber].uri.replacingOccurrences(of: " ", with: "%20")
-    url = URL(string: LocalServerData.localServerURL + urlAppendix)
-    
-    print(url)
-    if let url = url {
-      do {
-        try AVAudioSession.sharedInstance().setCategory(.playback)
-      } catch {
-        print(error.localizedDescription)
+    let storage = Storage.storage().reference(forURL: self.album[currentTrackNumber].url)
+    storage.downloadURL { (url, error) in
+      if error != nil {
+        print(error!.localizedDescription)
+      } else {
+        do {
+          try AVAudioSession.sharedInstance().setCategory(.playback)
+        } catch {
+          print(error.localizedDescription)
+        }
+        self.player = AVPlayer(playerItem: AVPlayerItem(url: url!))
+        self.player.play()
       }
-      self.player = AVPlayer(playerItem: AVPlayerItem(url: url))
-      self.player.play()
     }
   }
-
+  
   func playPause() {
     if !isPlaying {
       player.play()
@@ -102,6 +101,6 @@ struct PlayerView: View {
 
 struct PlayerView_Previews: PreviewProvider {
   static var previews: some View {
-    PlayerView(album: Album.example, initialTrackNumber: Song.example.track)
+    PlayerView(album: Album.example, initialTrackNumber: Song.example.trackNumber)
   }
 }
