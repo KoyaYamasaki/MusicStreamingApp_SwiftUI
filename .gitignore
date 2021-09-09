@@ -1,0 +1,11 @@
+## User settings
+xcuserdata/
+project.xcworkspace/
+*.xcworkspace
+
+## General
+*.DS_Store
+/Pods
+
+## Firebase
+*/GoogleService-Info.plist
