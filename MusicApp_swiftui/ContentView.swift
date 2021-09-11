@@ -22,8 +22,11 @@ struct ContentView: View {
         if !localServerData.artists.isEmpty {
           localServerData.artists[currentSelection].getImage.resizable().edgesIgnoringSafeArea(.all)
           Blur(style: .dark).edgesIgnoringSafeArea(.all)
+          Rectangle()
+            .foregroundColor(.clear)
+            .background(LinearGradient(gradient: Gradient(colors: [Color("color\(currentSelection)-dark"), Color.black]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
+            .opacity(0.5)
         }
-//        LinearGradient(gradient: Gradient(colors: [.blue, .black]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
         GeometryReader { fullView in
           ArtistPagerView(
             pageCount: localServerData.artists.count,
@@ -37,7 +40,7 @@ struct ContentView: View {
                     NavigationLink(destination: AlbumListView(artist: self.localServerData.artists[index], localServerData: localServerData)) {
                       Text("Check All Albums")
                     }
-                    .buttonStyle(SimpleButtonStyle(isDisabled: false))
+                    .buttonStyle(SimpleButtonStyle(currentIndex: currentSelection, isDisabled: false))
                     .padding(.bottom, 20)
                   } //: VStack
                 } //: GeometryReader
@@ -60,7 +63,7 @@ struct ContentView: View {
 }
 
 struct SimpleButtonStyle: ButtonStyle {
-    
+    let currentIndex: Int
     let isDisabled: Bool
     
     func makeBody(configuration: Configuration) -> some View {
@@ -71,7 +74,7 @@ struct SimpleButtonStyle: ButtonStyle {
             .background(
               LinearGradient(
                 gradient:
-                  Gradient(colors: [Color("color1-dark"), Color("color1-light")]),
+                  Gradient(colors: [Color("color\(currentIndex)-dark"), Color("color\(currentIndex)-light")]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
               ).cornerRadius(10))

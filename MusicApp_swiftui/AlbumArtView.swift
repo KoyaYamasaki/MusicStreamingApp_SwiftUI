@@ -10,7 +10,8 @@ import SwiftUI
 struct AlbumArtView: View {
   var artist: Artist?
   var album: Album?
-  var isWithText: Bool
+  let isWithText: Bool
+
   var body: some View {
     ZStack(alignment: .bottom) {
       getImage.resizable().aspectRatio(contentMode: .fill)
