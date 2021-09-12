@@ -30,21 +30,18 @@ class LSAlbums: ObservableObject {
   }
 }
 
-class LocalServerData: ObservableObject {
-//  @Published var albums = [Album]()
-  @Published var artists = [Artist]()
+class LSArtists: ObservableObject {
+  @Published var data = [Artist]()
 
-  static let localServerURL = "http://192.168.0.12:3005/"
-
-  func fetchLocalServerData() {
-    let url = URL(string: Self.localServerURL + "list")!
+  func fetchData() {
+    let url = URL(string: localServerURL + "list")!
     let request = URLRequest(url: url)
     let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
       guard let data = data else { return }
       do {
         let artists = try JSONDecoder().decode([Artist].self, from: data)
         DispatchQueue.main.async {
-          self.artists = artists
+          self.data = artists
         }
       } catch let error {
         print(error)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ArtistListView: View {
-  @ObservedObject var localServerData: LocalServerData
+  @ObservedObject var lsArtists: LSArtists
   var artist: Artist
 
   var body: some View {
@@ -30,6 +30,6 @@ struct ArtistListView: View {
 
 struct ArtistListView_Previews: PreviewProvider {
     static var previews: some View {
-      ArtistListView(localServerData: LocalServerData(), artist: Artist.example)
+      ArtistListView(lsArtists: LSArtists(), artist: Artist.example)
     }
 }

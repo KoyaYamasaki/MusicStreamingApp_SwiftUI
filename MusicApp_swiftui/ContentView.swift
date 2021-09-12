@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-  @ObservedObject var localServerData: LocalServerData
+  @ObservedObject var lsArtists: LSArtists
   @State var albums: [Album]?
   @State private var currentSelection: Int = 0
   @State private var currentTranslation: CGFloat = 0
@@ -16,8 +16,8 @@ struct ContentView: View {
   var body: some View {
     NavigationView {
       ZStack {
-        if !localServerData.artists.isEmpty {
-          localServerData.artists[currentSelection].getImage.resizable().edgesIgnoringSafeArea(.all)
+        if !lsArtists.data.isEmpty {
+          lsArtists.data[currentSelection].getImage.resizable().edgesIgnoringSafeArea(.all)
           Blur(style: .dark).edgesIgnoringSafeArea(.all)
           Rectangle()
             .foregroundColor(.clear)
@@ -26,17 +26,17 @@ struct ContentView: View {
         }
         GeometryReader { fullView in
           ArtistPagerView(
-            pageCount: localServerData.artists.count,
+            pageCount: lsArtists.data.count,
             currentIndex: $currentSelection,
             translation: $currentTranslation, content: {
-              ForEach(0..<self.localServerData.artists.count, id: \.self) { index in
+              ForEach(0..<self.lsArtists.data.count, id: \.self) { index in
                 GeometryReader { geo in
                   VStack {
-                    AlbumArtView(artist: self.localServerData.artists[index], isWithText: true)
+                    AlbumArtView(artist: self.lsArtists.data[index], isWithText: true)
                       .rotation3DEffect(.degrees(-Double(geo.frame(in: .global).midX - fullView.size.width / 2) / 10), axis: (x: 0, y: 1, z: 0))
-                    NavigationLink(destination: AlbumListView(artist: self.localServerData.artists[index]) { albums in
-                      self.localServerData.artists[index].albums = []
-                      self.localServerData.artists[index].albums?.append(contentsOf: albums)
+                    NavigationLink(destination: AlbumListView(artist: self.lsArtists.data[index]) { albums in
+                      self.lsArtists.data[index].albums = []
+                      self.lsArtists.data[index].albums?.append(contentsOf: albums)
                     })
                     {
                       Text("Check All Albums")
@@ -55,8 +55,8 @@ struct ContentView: View {
     } //: NavigationView
   } //: body
 
-  init(localServerData: LocalServerData) {
-    self.localServerData = localServerData
+  init(lsArtists: LSArtists) {
+    self.lsArtists = lsArtists
     UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
     UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
   }
@@ -85,10 +85,10 @@ struct SimpleButtonStyle: ButtonStyle {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    let localServerMock = LocalServerData()
-    localServerMock.artists = [Artist.example, Artist.example]
+    let lsArtistsMock = LSArtists()
+    lsArtistsMock.data = [Artist.example, Artist.example]
 
-    return ContentView(localServerData: localServerMock)
+    return ContentView(lsArtists: lsArtistsMock)
 //      .environmentObject(localServerMock)
       .previewDevice("iPhone 12")
   }

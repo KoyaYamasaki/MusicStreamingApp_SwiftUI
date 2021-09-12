@@ -9,15 +9,15 @@ import SwiftUI
 
 @main
 struct MusicApp_swiftuiApp: App {
-  let localServerData = LocalServerData()
+  let lsArtists = LSArtists()
 
   init() {
-    localServerData.fetchLocalServerData()
+    lsArtists.fetchData()
   }
   
   var body: some Scene {
     WindowGroup {
-      ContentView(localServerData: localServerData)
+      ContentView(lsArtists: lsArtists)
     }
   }
 }

@@ -60,7 +60,7 @@ struct PlayerView: View {
     var url: URL?
     
     let urlAppendix = self.album[currentTrackNumber].uri.replacingOccurrences(of: " ", with: "%20")
-    url = URL(string: LocalServerData.localServerURL + urlAppendix)
+    url = URL(string: localServerURL + urlAppendix)
     
     print(url)
     if let url = url {
