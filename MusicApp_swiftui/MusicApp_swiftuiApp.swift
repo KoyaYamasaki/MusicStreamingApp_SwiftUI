@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct MusicApp_swiftuiApp: App {
   let localServerData = LocalServerData()
-  
+
   init() {
     localServerData.fetchLocalServerData()
   }

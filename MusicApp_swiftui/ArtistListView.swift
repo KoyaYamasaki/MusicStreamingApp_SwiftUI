@@ -12,7 +12,9 @@ struct ArtistListView: View {
   var artist: Artist
 
   var body: some View {
-    NavigationLink(destination: AlbumListView(artist: artist, localServerData: localServerData)) {
+    NavigationLink(destination: AlbumListView(artist: artist) { artist in
+      print(artist)
+    }) {
       HStack {
         ZStack {
           Circle().frame(width: 50, height: 50, alignment: .center).foregroundColor(.blue)
