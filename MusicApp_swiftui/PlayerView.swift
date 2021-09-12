@@ -35,7 +35,10 @@ struct PlayerView: View {
           HStack {
             Button { self.previous() } label: {
               Image(systemName: "arrow.left.circle").resizable()
-            }.frame(width: 50, height: 50, alignment: .center).foregroundColor(.white)
+            }
+            .disabled(album.songs.first!.track == currentTrackNumber)
+            .frame(width: 50, height: 50, alignment: .center)
+            .foregroundColor(album.songs.first!.track != currentTrackNumber ? .white : .gray)
             
             Button { self.playPause() } label: {
               Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill").resizable()
@@ -43,7 +46,10 @@ struct PlayerView: View {
             
             Button { self.next() } label: {
               Image(systemName: "arrow.right.circle").resizable()
-            }.frame(width: 50, height: 50, alignment: .center).foregroundColor(.white)
+            }
+            .disabled(album.songs.last!.track == currentTrackNumber)
+            .frame(width: 50, height: 50, alignment: .center)
+            .foregroundColor(album.songs.last!.track != currentTrackNumber ? .white : .gray)
           } //: HStack
         } //: ZStack
         .edgesIgnoringSafeArea(.bottom)
