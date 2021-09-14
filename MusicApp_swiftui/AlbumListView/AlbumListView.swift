@@ -30,7 +30,7 @@ struct AlbumListView: View {
           
           if selectedAlbum != nil && selectedAlbum == album {
             ForEach(selectedAlbum!.songs, id: \.self) { song in
-              NavigationLink(destination: PlayerView(album: selectedAlbum!, initialTrackNumber: song.track)) {
+              NavigationLink(destination: PlayerView(vm: PlayerViewModel(currentSong: song, album: selectedAlbum!))) {
                 Text(song.title)
                   .font(.subheadline)
                   .padding([.leading])

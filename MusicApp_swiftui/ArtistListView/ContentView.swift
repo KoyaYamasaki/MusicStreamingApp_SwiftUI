@@ -55,11 +55,9 @@ struct ContentView: View {
     } //: NavigationView
   } //: body
 
-  init(lsArtists: LSArtists) {
-    self.lsArtists = lsArtists
-    UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-    UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
-  }
+//  init(lsArtists: LSArtists) {
+//    self.lsArtists = lsArtists
+//  }
 }
 
 struct SimpleButtonStyle: ButtonStyle {

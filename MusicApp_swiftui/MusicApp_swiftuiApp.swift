@@ -12,6 +12,8 @@ struct MusicApp_swiftuiApp: App {
   let lsArtists = LSArtists()
 
   init() {
+    UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+    UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
     lsArtists.fetchData()
   }
   

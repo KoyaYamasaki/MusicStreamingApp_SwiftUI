@@ -31,6 +31,9 @@ struct Album: Hashable, Codable {
   var songs: [Song]
   
   subscript(index: Int) -> Song {
+//    let target = songs.first { song in
+//      song.track == index
+//    }
     var position = index
     if index > 0 {
       position -= 1
