@@ -37,7 +37,7 @@ struct PlayerView: View {
         ZStack {
           HStack {
             Button { self.previous() } label: {
-              Image(systemName: "arrow.left.circle").resizable()
+              Image(systemName: "arrow.left.to.line").resizable()
             }
             .disabled(vm.album.songs.first!.track == vm.currentSong.track)
             .frame(width: 50, height: 50, alignment: .center)
@@ -48,7 +48,7 @@ struct PlayerView: View {
             }.frame(width: 70, height: 70, alignment: .center).foregroundColor(.white).padding()
             
             Button { self.next() } label: {
-              Image(systemName: "arrow.right.circle").resizable()
+              Image(systemName: "arrow.right.to.line").resizable()
             }
             .disabled(vm.album.songs.last!.track == vm.currentSong.track)
             .frame(width: 50, height: 50, alignment: .center)
