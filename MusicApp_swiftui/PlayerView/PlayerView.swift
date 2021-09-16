@@ -12,10 +12,8 @@ struct PlayerView: View {
 
   @ObservedObject var vm: PlayerViewModel
 
-  let player = AVPlayer()
   @State private var isPlaying: Bool = true
-
-  let finishedObserver = PlayerFinishedObserver()
+//  let player = CustomPlayer()
 
   var body: some View {
     ZStack {
@@ -33,7 +31,9 @@ struct PlayerView: View {
         AlbumArtView(album: vm.album, isWithText: false)
         Text(vm.album.title).font(.title).fontWeight(.light).foregroundColor(.white)
         Text(vm.currentSong.title).font(.title).fontWeight(.regular).foregroundColor(.white)
-        Spacer()
+//          ProgressView(value: duration, total: 100)
+        SeekBar(player: vm.player)
+        .foregroundColor(.white)
         ZStack {
           HStack {
             Button { self.previous() } label: {
@@ -60,24 +60,15 @@ struct PlayerView: View {
       } //: VStack
       .onAppear() {
         print("onAppear")
-        setupAudioSession()
         self.start()
       }
       .onDisappear() {
         print("onDisappear")
       }
-      .onReceive(finishedObserver.publisher) {
+      .onReceive(vm.publisher) { item in
         print("onReceive finishedObserver.publisher")
         self.next()
       }
-    }
-  }
-
-  func setupAudioSession() {
-    do {
-      try AVAudioSession.sharedInstance().setCategory(.playback)
-    } catch {
-      print(error.localizedDescription)
     }
   }
 
@@ -89,18 +80,24 @@ struct PlayerView: View {
 
   func start() {
     print("start in")
-    if self.player.rate == 0 {
-      self.player.replaceCurrentItem(with: currentPlayerItem)
-      finishedObserver.setObserver(player: self.player)
-      self.player.play()
+    if self.vm.player.rate == 0 {
+      do {
+        try AVAudioSession.sharedInstance().setActive(true)
+      } catch {
+        print(error)
+      }
+
+      self.vm.setPlayerItem(song: self.vm.currentSong)
+      print(self.vm.player.currentItem?.asset.duration.seconds)
+      self.vm.player.play()
     }
   }
 
   func playPause() {
     if !isPlaying {
-      player.play()
+      vm.player.play()
     } else {
-      player.pause()
+      vm.player.pause()
     }
     self.isPlaying.toggle()
   }
@@ -108,16 +105,16 @@ struct PlayerView: View {
   func next() {
     print("next in")
     if vm.currentSong.track < vm.album.songs.count {
-      player.pause()
-      vm.currentSong = vm.album.songs[vm.currentSong.track + 1]
+      vm.player.pause()
+      vm.currentSong = vm.album.songs.first(where: {$0.track == (vm.currentSong.track+1)})!
       self.start()
     }
   }
   
   func previous() {
     if vm.currentSong.track > 1 {
-      player.pause()
-      vm.currentSong = vm.album.songs[vm.currentSong.track - 1]
+      vm.player.pause()
+      vm.currentSong = vm.album.songs.first(where: {$0.track == (vm.currentSong.track-1)})!
       self.start()
     }
   }

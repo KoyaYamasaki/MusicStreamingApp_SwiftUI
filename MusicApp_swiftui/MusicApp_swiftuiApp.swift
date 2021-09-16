@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 @main
 struct MusicApp_swiftuiApp: App {
@@ -14,6 +15,17 @@ struct MusicApp_swiftuiApp: App {
   init() {
     UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
     UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
+    do {
+      try AVAudioSession.sharedInstance().setCategory(
+          AVAudioSession.Category.playback,
+          mode: AVAudioSession.Mode.default,
+          options: [
+              AVAudioSession.CategoryOptions.duckOthers
+          ]
+      )
+    } catch {
+      print(error)
+    }
     lsArtists.fetchData()
   }
   
