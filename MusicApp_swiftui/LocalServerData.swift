@@ -13,7 +13,7 @@ class LSAlbums: ObservableObject {
   @Published var data = [Album]()
 
   func fetchData(for artist: Artist) {
-    let url = URL(string: localServerURL + "list/" + artist.name)!
+    let url = URL(string: localServerURL + "list/" + getUrlArtistName(artistName: artist.name))!
     let request = URLRequest(url: url)
     let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
       guard let data = data else { return }
@@ -27,6 +27,10 @@ class LSAlbums: ObservableObject {
       }
     }
     task.resume()
+  }
+
+  func getUrlArtistName(artistName: String) -> String {
+    return artistName.replacingOccurrences(of: " ", with: "%20")
   }
 }
 

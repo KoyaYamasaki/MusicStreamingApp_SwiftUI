@@ -89,9 +89,11 @@ struct PlayerView: View {
 
   func start() {
     print("start in")
-    self.player.replaceCurrentItem(with: currentPlayerItem)
-    finishedObserver.setObserver(player: self.player)
-    self.player.play()
+    if self.player.rate == 0 {
+      self.player.replaceCurrentItem(with: currentPlayerItem)
+      finishedObserver.setObserver(player: self.player)
+      self.player.play()
+    }
   }
 
   func playPause() {

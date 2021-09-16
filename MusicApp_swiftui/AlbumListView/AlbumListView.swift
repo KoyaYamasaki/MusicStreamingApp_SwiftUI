@@ -54,9 +54,8 @@ struct AlbumListView: View {
           if artist.albums != nil {
             self.mode.wrappedValue.dismiss()
           } else {
-            // Back to main view by implementing
-            // Artist's albums.
             albumsHandler(lsAlbums.data)
+            self.mode.wrappedValue.dismiss()
           }
         }){
           HStack {
