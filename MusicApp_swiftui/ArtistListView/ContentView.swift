@@ -12,6 +12,8 @@ struct ContentView: View {
   @State var albums: [Album]?
   @State private var currentSelection: Int = 0
   @State private var currentTranslation: CGFloat = 0
+  @State private var expand = false
+  @Namespace var animation
 
   var body: some View {
     NavigationView {
@@ -24,32 +26,35 @@ struct ContentView: View {
             .background(LinearGradient(gradient: Gradient(colors: [Color("color\(currentSelection)-dark"), Color.black]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
             .opacity(0.5)
         }
-        GeometryReader { fullView in
-          ArtistPagerView(
-            pageCount: lsArtists.data.count,
-            currentIndex: $currentSelection,
-            translation: $currentTranslation, content: {
-              ForEach(0..<self.lsArtists.data.count, id: \.self) { index in
-                GeometryReader { geo in
-                  VStack {
-                    AlbumArtView(artist: self.lsArtists.data[index], isWithText: true)
-                      .rotation3DEffect(.degrees(-Double(geo.frame(in: .global).midX - fullView.size.width / 2) / 10), axis: (x: 0, y: 1, z: 0))
-                    NavigationLink(destination: AlbumListView(artist: self.lsArtists.data[index]) { albums in
-                      self.lsArtists.data[index].albums = []
-                      self.lsArtists.data[index].albums?.append(contentsOf: albums)
-                    })
-                    {
-                      Text("Check All Albums")
-                    }
-                    .buttonStyle(SimpleButtonStyle(currentIndex: currentSelection, isDisabled: false))
-                    .padding(.bottom, 20)
-                  } //: VStack
-                } //: GeometryReader
-                .frame(width: 350)
-              }
-            })
-            .padding(.horizontal, (fullView.size.width - 250) / 3)
-        }
+        VStack {
+          GeometryReader { fullView in
+            ArtistPagerView(
+              pageCount: lsArtists.data.count,
+              currentIndex: $currentSelection,
+              translation: $currentTranslation, content: {
+                ForEach(0..<self.lsArtists.data.count, id: \.self) { index in
+                  GeometryReader { geo in
+                    VStack {
+                      AlbumArtView(artist: self.lsArtists.data[index], isWithText: true)
+                        .rotation3DEffect(.degrees(-Double(geo.frame(in: .global).midX - fullView.size.width / 2) / 10), axis: (x: 0, y: 1, z: 0))
+                      NavigationLink(destination: AlbumListView(artist: self.lsArtists.data[index]) { albums in
+                        self.lsArtists.data[index].albums = []
+                        self.lsArtists.data[index].albums?.append(contentsOf: albums)
+                      })
+                      {
+                        Text("Check All Albums")
+                      }
+                      .buttonStyle(SimpleButtonStyle(currentIndex: currentSelection, isDisabled: false))
+                      .padding(.bottom, 20)
+                    } //: VStack
+                  } //: GeometryReader
+                  .frame(width: 350)
+                }
+              })
+              .padding(.horizontal, (fullView.size.width - 250) / 3)
+          } //: GeometryReader
+          Miniplayer(expand: $expand)
+        } //: VStack
       } //: ZStack
       .navigationTitle("Artists")
     } //: NavigationView
