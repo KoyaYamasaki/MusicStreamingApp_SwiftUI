@@ -12,8 +12,9 @@ struct ContentView: View {
   @State var albums: [Album]?
   @State private var currentSelection: Int = 0
   @State private var currentTranslation: CGFloat = 0
-  @State private var expand = false
+  @Binding var expand: Bool
   @Namespace var animation
+//  @Binding var vm: PlayerViewModel
 
   var body: some View {
     NavigationView {
@@ -53,8 +54,9 @@ struct ContentView: View {
               })
               .padding(.horizontal, (fullView.size.width - 250) / 3)
           } //: GeometryReader
-          Miniplayer(expand: $expand)
+//          Player(expand: $expand)
         } //: VStack
+        .offset(y: expand ? 0 : -80)
       } //: ZStack
       .navigationTitle("Artists")
     } //: NavigationView
@@ -91,7 +93,7 @@ struct ContentView_Previews: PreviewProvider {
     let lsArtistsMock = LSArtists()
     lsArtistsMock.data = [Artist.example, Artist.example]
 
-    return ContentView(lsArtists: lsArtistsMock)
+    return ContentView(lsArtists: lsArtistsMock, expand: .constant(false))
 //      .environmentObject(localServerMock)
       .previewDevice("iPhone 12")
   }

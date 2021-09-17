@@ -31,7 +31,7 @@ struct MusicApp_swiftuiApp: App {
   
   var body: some Scene {
     WindowGroup {
-      ContentView(lsArtists: lsArtists)
+      MainView(lsArtists: lsArtists)
     }
   }
 }

@@ -14,6 +14,7 @@ struct PlayerView: View {
 
   @State private var isPlaying: Bool = true
 //  let player = CustomPlayer()
+  var safeArea = UIApplication.shared.windows.first?.safeAreaInsets
 
   var body: some View {
     ZStack {
@@ -27,6 +28,12 @@ struct PlayerView: View {
       )
       
       VStack {
+        Capsule()
+          .fill(Color.gray)
+          .frame(width: 60, height: 4)
+          .opacity(1)
+          .padding(.top, safeArea?.top ?? 0)
+          .padding(.vertical, 30)
         Spacer()
         AlbumArtView(album: vm.album, isWithText: false)
         Text(vm.album.title).font(.title).fontWeight(.light).foregroundColor(.white)
@@ -58,6 +65,7 @@ struct PlayerView: View {
         .edgesIgnoringSafeArea(.bottom)
         .frame(height: 200, alignment: .center)
       } //: VStack
+      .padding(.bottom,80)
       .onAppear() {
         print("onAppear")
         self.start()
