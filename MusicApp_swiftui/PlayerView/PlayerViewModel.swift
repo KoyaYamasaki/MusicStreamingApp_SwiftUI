@@ -9,12 +9,12 @@ import Combine
 import AVFoundation
 
 class PlayerViewModel: ObservableObject {
-  @Published var currentSong: Song
-  let album: Album
+  @Published var currentSong: Song?
+  var album: Album?
   let player = CustomPlayer()
   let publisher = PassthroughSubject<Void, Never>()
 
-  init(currentSong: Song, album: Album) {
+  init(currentSong: Song? = nil, album: Album? = nil) {
 //    print("PlayerViewModel init")
     self.currentSong = currentSong
     self.album = album
@@ -27,7 +27,7 @@ class PlayerViewModel: ObservableObject {
   }
 
   var currentPlayerItem: AVPlayerItem {
-    let songUrl = self.currentSong.uri.replacingOccurrences(of: " ", with: "%20")
+    let songUrl = self.currentSong!.uri.replacingOccurrences(of: " ", with: "%20")
     let url = URL(string: localServerURL + songUrl)
     return AVPlayerItem(url: url!)
   }

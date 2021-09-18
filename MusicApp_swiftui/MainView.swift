@@ -9,16 +9,19 @@ import SwiftUI
 
 struct MainView: View {
   @ObservedObject var lsArtists: LSArtists
-//  @State private var vm: PlayerViewModel? = nil
-  @State private var expand = false
+  var vm = PlayerViewModel()
+  @State private var expand = true
     var body: some View {
       ZStack {
         ContentView(lsArtists: lsArtists, expand: $expand)
+          .environmentObject(vm)
 //        if vm != nil {
         VStack {
           Spacer()
           Player(expand: $expand)
+            .foregroundColor(.white)
             .background(Color.black.opacity(0.5))
+            .environmentObject(vm)
           }
         }
 //        }

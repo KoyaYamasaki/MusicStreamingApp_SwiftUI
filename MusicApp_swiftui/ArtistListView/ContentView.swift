@@ -13,7 +13,7 @@ struct ContentView: View {
   @State private var currentSelection: Int = 0
   @State private var currentTranslation: CGFloat = 0
   @Binding var expand: Bool
-  @Namespace var animation
+  @EnvironmentObject var vm: PlayerViewModel
 //  @Binding var vm: PlayerViewModel
 
   var body: some View {
