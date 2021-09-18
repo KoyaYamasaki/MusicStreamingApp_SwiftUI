@@ -11,7 +11,7 @@ import AVFoundation
 class PlayerViewModel: ObservableObject {
   @Published var currentSong: Song?
   var album: Album?
-  let player = CustomPlayer()
+  let player = AVPlayer()
   let publisher = PassthroughSubject<Void, Never>()
 
   init(currentSong: Song? = nil, album: Album? = nil) {

@@ -2,95 +2,161 @@
 //  PlayerView.swift
 //  MusicApp_swiftui
 //
-//  Created by 山崎宏哉 on 2021/08/09.
+//  Created by 山崎宏哉 on 2021/09/17.
 //
 
 import SwiftUI
 import AVFoundation
 
-struct PlayerView: View {
-
-  @Binding var isPlaying: Bool
-  let playerControl: (PlayerControl) -> Void
-  @EnvironmentObject var vm: PlayerViewModel
-
-  var safeArea = UIApplication.shared.windows.first?.safeAreaInsets
-
-  var body: some View {
-    ZStack {
-      // TODO: Refactor to display actual album image
-      vm.album!.getImage.resizable().edgesIgnoringSafeArea(.all)
-      Blur(style: .dark).edgesIgnoringSafeArea(.all)
-      LinearGradient(
-        gradient: Gradient(colors:[Color.black.opacity(0.0), Color.black.opacity(0.95)]),
-        startPoint: .top,
-        endPoint: .bottom
-      )
-      
-      VStack {
-        Capsule()
-          .fill(Color.gray)
-          .frame(width: 60, height: 4)
-          .opacity(1)
-          .padding(.top, safeArea?.top ?? 0)
-          .padding(.vertical, 30)
-        Spacer()
-        AlbumArtView(album: vm.album, isWithText: false)
-        Text(vm.album!.title).font(.title).fontWeight(.light).foregroundColor(.white)
-        Text(vm.currentSong!.title).font(.title).fontWeight(.regular).foregroundColor(.white)
-//          ProgressView(value: duration, total: 100)
-        SeekBar(player: vm.player)
-        .foregroundColor(.white)
-        ZStack {
-          HStack {
-            Button { self.playerControl(.previous) } label: {
-              Image(systemName: "arrow.left.to.line").resizable()
-            }
-            .disabled(vm.album!.songs.first!.track == vm.currentSong!.track)
-            .frame(width: 50, height: 50, alignment: .center)
-            .foregroundColor(vm.album!.songs.first!.track != vm.currentSong!.track ? .white : .gray)
-            
-            Button { self.playerControl(.playAndPause) } label: {
-              Image(systemName: self.isPlaying ? "pause.circle.fill" : "play.circle.fill").resizable()
-            }.frame(width: 70, height: 70, alignment: .center).foregroundColor(.white).padding()
-            
-            Button { self.playerControl(.next) } label: {
-              Image(systemName: "arrow.right.to.line").resizable()
-            }
-            .disabled(vm.album!.songs.last!.track == vm.currentSong!.track)
-            .frame(width: 50, height: 50, alignment: .center)
-            .foregroundColor(vm.album!.songs.last!.track != vm.currentSong!.track ? .white : .gray)
-          } //: HStack
-        } //: ZStack
-        .edgesIgnoringSafeArea(.bottom)
-        .frame(height: 200, alignment: .center)
-      } //: VStack
-      .padding(.bottom,80)
-      .onDisappear() {
-        print("onDisappear")
-      }
-      .onReceive(vm.publisher) { item in
-        print("onReceive finishedObserver.publisher")
-        self.playerControl(.next)
-      }
-    }
-  }
-
-  var currentPlayerItem: AVPlayerItem {
-    let songUrl = vm.currentSong!.uri.replacingOccurrences(of: " ", with: "%20")
-    let url = URL(string: localServerURL + songUrl)
-    return AVPlayerItem(url: url!)
-  }
+enum PlayerControl {
+  case start
+  case playAndPause
+  case next
+  case previous
 }
 
-struct PlayerView_Previews: PreviewProvider {
-  static var previews: some View {
-    let vm = PlayerViewModel()
-    vm.currentSong = Song.example
-    vm.album = Album.example
-    return PlayerView(isPlaying: .constant(true)) { playerControl in
-      print(playerControl)
+struct PlayerView: View {
+  @EnvironmentObject var vm: PlayerViewModel
+  @Binding var playerExpand: Bool
+
+  @State private var isPlaying: Bool = true
+  var height = UIScreen.main.bounds.height / 3
+  @State var offset : CGFloat = 0
+  
+  var body: some View {
+    if vm.album != nil && vm.currentSong != nil {
+      Group {
+        if playerExpand {
+          FullPlayer(isPlaying: $isPlaying) { playerControl in
+            print("playerControl")
+            onReceivePlayerControl(playerControl)
+          }
+          .environmentObject(vm)
+          .frame(maxHeight: .infinity)
+        } else {
+          Miniplayer(isPlaying: $isPlaying) { playerControl in
+           print("playerControl")
+           onReceivePlayerControl(playerControl)
+         }
+          .environmentObject(vm)
+        }
+      } //: Group
+      .onAppear() {
+        print("onAppear")
+        // don't start if the player is in pause.
+        if self.isPlaying {
+          print("player is not in pause")
+          self.start()
+        }
+      }
+      .onTapGesture(perform: {
+        withAnimation(.spring()) {
+          playerExpand = true
+        }
+      })
+      .cornerRadius(playerExpand ? 20 : 0)
+      //      .offset(y: expand ? 0 : -48)
+      .offset(y: offset)
+      .gesture(DragGesture().onEnded(onended(value:)).onChanged(onchanged(value:)))
+      .ignoresSafeArea()
     }
-    .environmentObject(vm)
+  } //: body
+
+  func onReceivePlayerControl(_ playerControl: PlayerControl) {
+
+    switch playerControl {
+    case .start:
+      start()
+    case .playAndPause:
+      playPause()
+    case .next:
+      next()
+    case .previous:
+      previous()
+    }
+  }
+
+  func onchanged(value: DragGesture.Value) {
+    
+    // only allowing when its expanded...
+    
+    if value.translation.height > 0 && playerExpand {
+      
+      offset = value.translation.height
+    }
+  }
+  
+  func onended(value: DragGesture.Value) {
+    
+    withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.95, blendDuration: 0.95)){
+      
+      // if value is > than height / 3 then closing view...
+      
+      if value.translation.height > height {
+        
+        playerExpand = false
+      }
+      
+      offset = 0
+    }
+  }
+
+  func start() {
+    print("start in")
+    
+    if self.vm.player.rate == 0 {
+      do {
+        try AVAudioSession.sharedInstance().setActive(true)
+      } catch {
+        print(error)
+      }
+
+      self.vm.setPlayerItem(song: self.vm.currentSong!)
+      print(self.vm.player.currentItem?.asset.duration.seconds)
+      self.vm.player.play()
+    }
+  }
+
+  func playPause() {
+    if !isPlaying {
+      vm.player.play()
+    } else {
+      vm.player.pause()
+    }
+    self.isPlaying.toggle()
+  }
+  
+  func next() {
+    print("next in")
+    if vm.currentSong!.track < vm.album!.songs.count {
+      vm.player.pause()
+      vm.currentSong = vm.album!.songs.first(where: {$0.track == (vm.currentSong!.track+1)})!
+      self.vm.setPlayerItem(song: self.vm.currentSong!)
+      // don't start if the player is in pause.
+      if self.isPlaying {
+        print("player is not in pause")
+        self.vm.player.play()
+      }
+    }
+  }
+  
+  func previous() {
+    if vm.currentSong!.track > 1 {
+      vm.player.pause()
+      vm.currentSong = vm.album!.songs.first(where: {$0.track == (vm.currentSong!.track-1)})!
+      self.vm.setPlayerItem(song: self.vm.currentSong!)
+      // don't start if the player is in pause.
+      if self.isPlaying {
+        print("player is not in pause")
+        self.vm.player.play()
+      }
+    }
+  }
+  
+}
+
+struct Player_Previews: PreviewProvider {
+  static var previews: some View {
+    PlayerView(playerExpand: .constant(false))
   }
 }
