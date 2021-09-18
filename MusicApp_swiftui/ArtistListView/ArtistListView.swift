@@ -37,7 +37,7 @@ struct ArtistListView: View {
                     VStack {
                       ArtworkView(artist: self.lsArtists.data[index], isWithText: true)
                         .rotation3DEffect(.degrees(-Double(geo.frame(in: .global).midX - fullView.size.width / 2) / 10), axis: (x: 0, y: 1, z: 0))
-                      NavigationLink(destination: AlbumListView(artist: self.lsArtists.data[index]) { albums in
+                      NavigationLink(destination: AlbumListView(artist: self.lsArtists.data[index], playerExpand: $playerExpand) { albums in
                         self.lsArtists.data[index].albums = []
                         self.lsArtists.data[index].albums?.append(contentsOf: albums)
                       })
@@ -53,17 +53,12 @@ struct ArtistListView: View {
               })
               .padding(.horizontal, (fullView.size.width - 250) / 3)
           } //: GeometryReader
-//          Player(expand: $expand)
         } //: VStack
         .offset(y: playerExpand ? 0 : -80)
       } //: ZStack
       .navigationTitle("Artists")
     } //: NavigationView
   } //: body
-
-//  init(lsArtists: LSArtists) {
-//    self.lsArtists = lsArtists
-//  }
 }
 
 struct SimpleButtonStyle: ButtonStyle {

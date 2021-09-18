@@ -66,20 +66,7 @@ struct FullPlayer: View {
         .frame(height: 200, alignment: .center)
       } //: VStack
       .padding(.bottom,80)
-      .onDisappear() {
-        print("onDisappear")
-      }
-      .onReceive(vm.publisher) { item in
-        print("onReceive finishedObserver.publisher")
-        self.playerControl(.next)
-      }
     }
-  }
-
-  var currentPlayerItem: AVPlayerItem {
-    let songUrl = vm.currentSong!.uri.replacingOccurrences(of: " ", with: "%20")
-    let url = URL(string: localServerURL + songUrl)
-    return AVPlayerItem(url: url!)
   }
 }
 

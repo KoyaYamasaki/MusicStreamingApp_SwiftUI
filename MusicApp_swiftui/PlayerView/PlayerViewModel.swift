@@ -10,6 +10,12 @@ import AVFoundation
 
 class PlayerViewModel: ObservableObject {
   @Published var currentSong: Song?
+  {
+    didSet {
+      // TODO: there might be better way than this.
+      self.player.pause()
+    }
+  }
   var album: Album?
   let player = AVPlayer()
   let publisher = PassthroughSubject<Void, Never>()
@@ -37,7 +43,6 @@ class PlayerViewModel: ObservableObject {
     var cancellable: AnyCancellable?
     cancellable = NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime, object: item).sink { [weak self] change in
       self?.publisher.send()
-//      self?.currentSong = self!.album.songs.first(where: {$0.track == (self!.currentSong.track+1)})!
       print("after publisher.send()")
       cancellable?.cancel()
     }

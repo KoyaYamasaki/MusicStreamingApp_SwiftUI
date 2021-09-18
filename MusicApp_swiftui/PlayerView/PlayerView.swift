@@ -49,6 +49,13 @@ struct PlayerView: View {
           self.start()
         }
       }
+      .onReceive(vm.publisher) { item in
+        print("onReceive finishedObserver.publisher")
+        self.next()
+      }
+      .onDisappear() {
+        print("onDisappear")
+      }
       .onTapGesture(perform: {
         withAnimation(.spring()) {
           playerExpand = true

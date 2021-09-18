@@ -9,7 +9,9 @@ import SwiftUI
 
 struct AlbumListView: View {
   let artist: Artist
+  @Binding var playerExpand: Bool
   let albumsHandler: ([Album]) -> Void
+
   @Environment(\.presentationMode) var mode: Binding<PresentationMode>
   @StateObject private var lsAlbums = LSAlbums()
   @State private var selectedAlbum: Album?
@@ -31,14 +33,10 @@ struct AlbumListView: View {
           
           if selectedAlbum != nil && selectedAlbum == album {
             ForEach(selectedAlbum!.songs, id: \.self) { song in
-//              NavigationLink(destination: PlayerView(vm: PlayerViewModel(currentSong: song, album: selectedAlbum!))) {
-//                Text(song.title)
-//                  .font(.subheadline)
-//                  .padding([.leading])
-//              }
               Button(song.title) {
                 vm.currentSong = song
                 vm.album = album
+                playerExpand = true
               }
             }
           }
@@ -87,7 +85,7 @@ struct AlbumListView: View {
 
 struct ArtistFeatureView_Previews: PreviewProvider {
   static var previews: some View {
-    AlbumListView(artist: Artist.example) { artist in
+    AlbumListView(artist: Artist.example, playerExpand: .constant(false)) { artist in
       print(artist)
     }
   }
