@@ -10,12 +10,10 @@ import AVFoundation
 
 struct SeekBar: View {
   let player: AVPlayer
-  @State var time: TimeInterval
+  @State var time: TimeInterval = 0.0
 
   init(player: AVPlayer) {
     self.player = player
-//    _time = .init(initialValue: (player.currentItem?.duration.seconds) ?? 0)
-    _time = .init(initialValue: 0.0)
   }
 
   var body: some View {
@@ -24,7 +22,12 @@ struct SeekBar: View {
     print("remainingTime: ", remainingTime)
     return HStack {
       Text(Self.timeToString(time: time))
-      Slider(value: self.$time, in: 0...playbackDuration)
+      Slider(
+        value: self.$time,
+        in: 0...playbackDuration,
+        onEditingChanged: { _ in
+          self.player.seek(to: CMTime(seconds: self.time, preferredTimescale: 1000000))
+      })
       Text(Self.timeToString(time: playbackDuration))
     }
     .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()) { _ in
