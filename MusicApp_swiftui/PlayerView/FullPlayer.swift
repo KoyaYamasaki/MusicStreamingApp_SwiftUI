@@ -10,8 +10,6 @@ import AVFoundation
 
 struct FullPlayer: View {
 
-  @Binding var isPlaying: Bool
-  let playerControl: (PlayerControl) -> Void
   @EnvironmentObject var vm: PlayerViewModel
 
   var safeArea = UIApplication.shared.windows.first?.safeAreaInsets
@@ -43,18 +41,18 @@ struct FullPlayer: View {
         .foregroundColor(.white)
         ZStack {
           HStack {
-            Button { self.playerControl(.previous) } label: {
+            Button { self.vm.previous() } label: {
               Image(systemName: "arrow.left.to.line").resizable()
             }
             .disabled(vm.album!.songs.first!.track == vm.currentSong!.track)
             .frame(width: 50, height: 50, alignment: .center)
             .foregroundColor(vm.album!.songs.first!.track != vm.currentSong!.track ? .white : .gray)
             
-            Button { self.playerControl(.playAndPause) } label: {
-              Image(systemName: self.isPlaying ? "pause.circle.fill" : "play.circle.fill").resizable()
+            Button { self.vm.isPlaying ? self.vm.pauseAndChangeFlag() : self.vm.playAndChangeFlag() } label: {
+              Image(systemName: self.vm.isPlaying ? "pause.circle.fill" : "play.circle.fill").resizable()
             }.frame(width: 70, height: 70, alignment: .center).foregroundColor(.white).padding()
             
-            Button { self.playerControl(.next) } label: {
+            Button { self.vm.next() } label: {
               Image(systemName: "arrow.right.to.line").resizable()
             }
             .disabled(vm.album!.songs.last!.track == vm.currentSong!.track)
@@ -75,9 +73,7 @@ struct PlayerView_Previews: PreviewProvider {
     let vm = PlayerViewModel()
     vm.currentSong = Song.example
     vm.album = Album.example
-    return FullPlayer(isPlaying: .constant(true)) { playerControl in
-      print(playerControl)
-    }
+    return FullPlayer()
     .environmentObject(vm)
   }
 }

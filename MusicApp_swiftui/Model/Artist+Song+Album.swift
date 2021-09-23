@@ -51,6 +51,14 @@ struct Album: Hashable, Codable {
     }
   }
 
+  var getUIImage: UIImage {
+    if let uiImage = UIImage(data: self.image) {
+      return uiImage
+    } else {
+      return UIImage(named: "image1")!
+    }
+  }
+
   static let example =
     Album(
       artist: "aaaa", title: "title_title_title_title", tracks: 2, image: Data(),

@@ -9,8 +9,6 @@ import SwiftUI
 
 struct Miniplayer: View {
 
-  @Binding var isPlaying: Bool
-  let playerControl: (PlayerControl) -> Void
   @EnvironmentObject var vm: PlayerViewModel
 
   var height = UIScreen.main.bounds.height / 3
@@ -41,15 +39,15 @@ struct Miniplayer: View {
         Spacer(minLength: 0)
         
         Button(action: {
-          self.playerControl(.playAndPause)
+          self.vm.isPlaying ? self.vm.pauseAndChangeFlag() : self.vm.playAndChangeFlag()
         }, label: {
-          Image(systemName: self.isPlaying ? "pause.fill" : "play.fill")
+          Image(systemName: self.vm.isPlaying ? "pause.fill" : "play.fill")
             .font(.title2)
             .foregroundColor(.white)
         })
         
         Button(action: {
-          self.playerControl(.next)
+          self.vm.next()
         }, label: {
           
           Image(systemName: "forward.fill")
@@ -71,9 +69,7 @@ struct Miniplayer_Previews: PreviewProvider {
     let vm = PlayerViewModel()
     vm.currentSong = Song.example
     vm.album = Album.example
-    return Miniplayer(isPlaying: .constant(true)) { playerControl in
-      print(playerControl)
-    }
+    return Miniplayer()
     .environmentObject(vm)
   }
 }
