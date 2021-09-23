@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AlbumArtView: View {
+struct ArtworkView: View {
   var artist: Artist?
   var album: Album?
   let isWithText: Bool
@@ -53,6 +53,6 @@ struct AlbumArtView: View {
 
 struct AlbumArtView_Previews: PreviewProvider {
     static var previews: some View {
-      AlbumArtView(artist: Artist.example, isWithText: true)
+      ArtworkView(artist: Artist.example, isWithText: true)
     }
 }
