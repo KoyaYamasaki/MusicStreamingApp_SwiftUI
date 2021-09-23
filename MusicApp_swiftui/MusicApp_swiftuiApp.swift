@@ -17,12 +17,9 @@ struct MusicApp_swiftuiApp: App {
     UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
     do {
       try AVAudioSession.sharedInstance().setCategory(
-          AVAudioSession.Category.playback,
-          mode: AVAudioSession.Mode.default,
-          options: [
-              AVAudioSession.CategoryOptions.duckOthers
-          ]
-      )
+        .playAndRecord,
+        mode: .spokenAudio,
+        options: [.defaultToSpeaker, .allowAirPlay, .allowBluetoothA2DP])
     } catch {
       print(error)
     }
@@ -31,7 +28,7 @@ struct MusicApp_swiftuiApp: App {
   
   var body: some Scene {
     WindowGroup {
-      ContentView(lsArtists: lsArtists)
+      MainView(lsArtists: lsArtists)
     }
   }
 }
