@@ -23,7 +23,7 @@ struct ArtistListView: View {
           Blur(style: .dark).edgesIgnoringSafeArea(.all)
           Rectangle()
             .foregroundColor(.clear)
-            .background(LinearGradient(gradient: Gradient(colors: [Color("color\(currentSelection)-dark"), Color.black]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
+            .background(LinearGradient(gradient: Gradient(colors: [getColorSet[0], Color.black]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
             .opacity(0.5)
         }
         VStack {
@@ -44,7 +44,7 @@ struct ArtistListView: View {
                       {
                         Text("Check All Albums")
                       }
-                      .buttonStyle(SimpleButtonStyle(currentIndex: currentSelection, isDisabled: false))
+                      .buttonStyle(SimpleButtonStyle())
                       .padding(.bottom, 20)
                     } //: VStack
                   } //: GeometryReader
@@ -62,8 +62,6 @@ struct ArtistListView: View {
 }
 
 struct SimpleButtonStyle: ButtonStyle {
-  let currentIndex: Int
-  let isDisabled: Bool
   
   func makeBody(configuration: Configuration) -> some View {
     configuration.label
@@ -73,13 +71,21 @@ struct SimpleButtonStyle: ButtonStyle {
       .background(
         LinearGradient(
           gradient:
-            Gradient(colors: [Color("color\(currentIndex)-dark"), Color("color\(currentIndex)-light")]),
+            Gradient(colors: getColorSet),
           startPoint: .topLeading,
           endPoint: .bottomTrailing
         ).cornerRadius(10))
-      .saturation(isDisabled ? 0 : 1)
+      .saturation(1)
       .scaleEffect(configuration.isPressed ? 0.95 : 1)
   }
+}
+
+var getColorSet: [Color] {
+  let assstsVariation = 4
+  return [
+    Color("color\(Int.random(in:0..<assstsVariation))-dark"),
+    Color("color\(Int.random(in:0..<assstsVariation))-light")
+  ]
 }
 
 struct ContentView_Previews: PreviewProvider {
