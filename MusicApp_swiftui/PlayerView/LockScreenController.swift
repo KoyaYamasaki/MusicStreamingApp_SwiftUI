@@ -10,7 +10,8 @@ import MediaPlayer
 
 class LockScreenController {
   let player: AVPlayer
-  
+  var nowPlayingInfo = [String : Any]()
+
   init(player: AVPlayer) {
     self.player = player
   }
@@ -23,6 +24,7 @@ class LockScreenController {
     commandCenter.playCommand.addTarget { [unowned self] event in
       if self.player.rate == 0.0 {
         playControl(.play)
+        updateNowPlaying()
         return .success
       }
       return .commandFailed
@@ -31,6 +33,7 @@ class LockScreenController {
     commandCenter.pauseCommand.addTarget { [unowned self] event in
       if self.player.rate == 1.0 {
         playControl(.pause)
+        updateNowPlaying()
         return .success
       }
       return .commandFailed
@@ -48,6 +51,9 @@ class LockScreenController {
   }
   
   func setupNowPlaying() {
+    // Clear nowPlayingInfo
+    nowPlayingInfo = [String : Any]()
+
     // Define Now Playing Info
     let metadata = self.player.currentItem!.asset.commonMetadata
 
@@ -64,7 +70,6 @@ class LockScreenController {
       filteredByIdentifier: .commonIdentifierArtwork
     )
 
-    var nowPlayingInfo = [String : Any]()
     nowPlayingInfo[MPMediaItemPropertyArtist] = artistItem[0].value
     nowPlayingInfo[MPMediaItemPropertyTitle] = titleItem[0].value
 
@@ -74,12 +79,16 @@ class LockScreenController {
           return image
         }
     }
-    
-    nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.player.currentItem!.currentTime().seconds
+
     nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = self.player.currentItem!.asset.duration.seconds
-    nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = self.player.rate
 
     // Set the metadata
+    MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
+  }
+
+  func updateNowPlaying() {
+    nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.player.currentItem!.currentTime().seconds
+    nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = self.player.rate
     MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
   }
 }

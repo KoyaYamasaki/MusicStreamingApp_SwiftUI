@@ -23,6 +23,7 @@ class PlayerViewModel: ObservableObject {
       self.setPlayerItem(song: currentSong!)
       self.setSessionActive()
       self.playAndChangeFlag()
+      self.setupLockScreenController()
     }
   }
   @Published var isPlaying: Bool = true
@@ -43,8 +44,12 @@ class PlayerViewModel: ObservableObject {
   func setPlayerItem(song: Song) {
     let playerItem = currentPlayerItem
     self.player.replaceCurrentItem(with: playerItem)
-    self.lockScreenController.setupNowPlaying()
     self.setObserver(player: self.player)
+  }
+
+  func setupLockScreenController() {
+    self.lockScreenController.setupNowPlaying()
+    self.lockScreenController.updateNowPlaying()
   }
 
   var currentPlayerItem: AVPlayerItem {
