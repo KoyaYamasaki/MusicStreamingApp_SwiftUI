@@ -65,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				4646502426D1A5C300AA90E6 /* Artist+Song+Album.swift */,
+				4646502226D1A50100AA90E6 /* LocalServerData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -121,7 +122,6 @@
 			children = (
 				4646502626D1A5D500AA90E6 /* Model */,
 				46F3BE3626C0C0B800BD7B45 /* MusicApp_swiftuiApp.swift */,
-				4646502226D1A50100AA90E6 /* LocalServerData.swift */,
 				46E2A8D226C178B800BCE0FC /* ArtworkView.swift */,
 				469BEE6226F4A4CB00232199 /* MainView.swift */,
 				4674B13E26F0FA030041015D /* ArtistListView */,
