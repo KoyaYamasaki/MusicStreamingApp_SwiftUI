@@ -10,7 +10,6 @@ import SwiftUI
 struct ArtistListView: View {
   @ObservedObject var lsArtists: LSArtists
   @Binding var playerExpand: Bool
-  @EnvironmentObject var vm: PlayerViewModel
 
   @State private var currentSelection: Int = 0
   @State private var currentTranslation: CGFloat = 0

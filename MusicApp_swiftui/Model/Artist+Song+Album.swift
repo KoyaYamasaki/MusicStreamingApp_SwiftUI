@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-struct Artist: Hashable, Codable, Equatable {
+struct Artist: Hashable, Codable {
   var name: String
   var image: Data
   var albums: [Album]?
@@ -49,15 +49,7 @@ struct Album: Hashable, Codable {
     } else {
       return Image("image1")
     }
-  }
-
-  var getUIImage: UIImage {
-    if let uiImage = UIImage(data: self.image) {
-      return uiImage
-    } else {
-      return UIImage(named: "image1")!
-    }
-  }
+  } 
 
   static let example =
     Album(
